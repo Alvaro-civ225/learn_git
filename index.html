@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notresite – Des solutions simples pour un meilleur quotidien</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== COULEURS (modifie-les ici pour changer toute la page) ===== */
+    :root {
+      --prune: #2A1740;        /* en-tête et pied de page */
+      --violet: #6C3CE0;       /* boutons principaux */
+      --violet-fonce: #5628B8; /* boutons au survol */
+      --corail: #FF6B4A;       /* accent 1 */
+      --turquoise: #14A38B;    /* accent 2 */
+      --or: #F5A524;           /* accent 3 */
+      --fond-doux: #F4EFFC;    /* sections colorées */
+      --texte: #24163A;
+      --texte-doux: #5E5373;
+      --bordure: #E3DAF2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, "Segoe UI", Arial, sans-serif;
+      color: var(--texte);
+      background: #fff;
+      line-height: 1.6;
+    }
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .conteneur { width: min(1100px, 92%); margin: 0 auto; }
+    :focus-visible { outline: 3px solid var(--or); outline-offset: 3px; }
+
+    /* ===== EN-TÊTE ===== */
+    header { background: var(--prune); color: #fff; position: sticky; top: 0; z-index: 10; }
+    .barre { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: 16px; flex-wrap: wrap; }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 800; }
+    .logo b { color: var(--or); }
+    nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    nav a { padding: 20px 14px; font-weight: 600; font-size: .95rem; border-bottom: 3px solid transparent; }
+    nav a:hover { color: var(--or); }
+    nav a.actif { border-bottom-color: var(--or); }
+
+    /* ===== BOUTONS ===== */
+    .bouton {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--violet); color: #fff;
+      padding: 14px 26px; border-radius: 8px;
+      font-weight: 700; font-size: .95rem; border: 0; cursor: pointer;
+      transition: background .2s;
+    }
+    .bouton:hover { background: var(--violet-fonce); }
+    .bouton.corail { background: var(--corail); }
+    .bouton.corail:hover { background: #E8532F; }
+
+    /* ===== ACCUEIL ===== */
+    .hero { background: var(--fond-doux); padding: 56px 0; }
+    .hero .conteneur { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .petit-titre { color: var(--violet); font-weight: 700; font-size: .85rem; letter-spacing: .04em; }
+    h1 { font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.15; margin: 10px 0 16px; font-weight: 800; }
+    .hero p { color: var(--texte-doux); font-size: 1.05rem; margin-bottom: 26px; max-width: 46ch; }
+    .hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; }
+
+    /* ===== SERVICES ===== */
+    .services { padding: 64px 0; text-align: center; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.2; font-weight: 800; margin: 6px 0 10px; }
+    .sous-titre { color: var(--texte-doux); }
+    .cartes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+    .carte { border: 1px solid var(--bordure); border-radius: 10px; padding: 28px 22px; background: #fff; }
+    .icone { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 16px; }
+    .icone svg { width: 32px; height: 32px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .carte h3 { font-size: 1.15rem; margin-bottom: 8px; }
+    .carte p { color: var(--texte-doux); font-size: .95rem; margin-bottom: 14px; }
+    .lien { color: var(--violet); font-weight: 700; font-size: .92rem; }
+    .lien:hover { text-decoration: underline; }
+
+    /* ===== VIDÉO + AUDIO ===== */
+    .medias { background: var(--fond-doux); padding: 56px 0; }
+    .medias .conteneur { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: center; }
+    .medias p.texte { color: var(--texte-doux); margin-bottom: 18px; }
+    .video-cadre video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; border-radius: 10px; }
+    .colonne-audio { border-left: 1px solid var(--bordure); padding-left: 48px; }
+
+    /* lecteur audio personnalisé */
+    .lecteur { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid var(--bordure); border-radius: 999px; padding: 8px 18px 8px 8px; }
+    .lecteur button { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--corail); cursor: pointer; display: grid; place-items: center; flex: none; }
+    .lecteur button:hover { background: #E8532F; }
+    .lecteur svg { width: 18px; height: 18px; fill: #fff; }
+    .lecteur .temps { font-size: .85rem; color: var(--texte-doux); min-width: 84px; font-variant-numeric: tabular-nums; }
+    .piste { flex: 1; height: 6px; background: var(--bordure); border-radius: 3px; overflow: hidden; }
+    .piste div { height: 100%; width: 0; background: var(--violet); }
+    .infos-audio { display: flex; gap: 14px; align-items: center; margin-top: 18px; color: var(--texte-doux); font-size: .95rem; }
+    .infos-audio svg { width: 34px; height: 34px; fill: var(--corail); flex: none; }
+    .infos-audio strong { color: var(--texte); display: block; }
+    .note-audio { margin-top: 12px; font-size: .85rem; color: var(--texte-doux); }
+
+    /* ===== À PROPOS ===== */
+    .apropos { padding: 64px 0; }
+    .apropos .conteneur { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; }
+    .apropos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
+    .apropos p.texte { color: var(--texte-doux); margin: 8px 0 22px; max-width: 52ch; }
+
+    /* ===== PIED DE PAGE ===== */
+    footer { background: var(--prune); color: #fff; padding: 26px 0; font-size: .9rem; }
+    footer .conteneur { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .reseaux { display: flex; gap: 18px; }
+    .reseaux a { width: 26px; height: 26px; display: grid; place-items: center; }
+    .reseaux a:hover { color: var(--or); }
+    .reseaux svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* ===== PETITS ÉCRANS ===== */
+    @media (max-width: 860px) {
+      .hero .conteneur, .medias .conteneur, .apropos .conteneur { grid-template-columns: 1fr; gap: 32px; }
+      .cartes { grid-template-columns: 1fr; }
+      .colonne-audio { border-left: 0; padding-left: 0; border-top: 1px solid var(--bordure); padding-top: 32px; }
+      nav a { padding: 10px 10px; }
+      .barre { padding: 10px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== EN-TÊTE ===== -->
+  <header>
+    <div class="conteneur barre">
+      <a href="#accueil" class="logo" aria-label="Notresite, accueil">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <path d="M17 31C9 27 5 20 6 10c6 1 10 5 11 12 1-7 5-11 11-12 1 10-3 17-11 21z" fill="#FF6B4A"/>
+          <path d="M17 31c-1-6 0-12 6-17-4 2-6 6-6 11z" fill="#F5A524"/>
+        </svg>
+        <span>Notre<b>site</b></span>
+      </a>
+      <nav aria-label="Navigation principale">
+        <a href="#accueil" class="actif">Accueil</a>
+        <a href="#services">Services</a>
+        <a href="#apropos">À propos</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== ACCUEIL ===== -->
+    <section class="hero" id="accueil">
+      <div class="conteneur">
+        <div>
+          <p class="petit-titre">Bienvenue sur Notresite</p>
+          <h1>Des solutions simples pour un meilleur quotidien</h1>
+          <p>Nous vous accompagnons dans la réalisation de vos projets avec des solutions modernes, simples et efficaces.</p>
+          <a href="#services" class="bouton">Découvrir nos services <span aria-hidden="true">→</span></a>
+        </div>
+        <img src="media/hero.jpg" alt="Coucher de soleil sur la lagune, avec la ville en silhouette">
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services" id="services">
+      <div class="conteneur">
+        <p class="petit-titre">Nos services</p>
+        <h2>Ce que nous proposons</h2>
+        <p class="sous-titre">Des services adaptés à vos besoins, simples et efficaces.</p>
+
+        <div class="cartes">
+          <article class="carte">
+            <div class="icone" style="background: var(--violet)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+            </div>
+            <h3>Développement Web</h3>
+            <p>Des sites web modernes et performants, adaptés à vos besoins.</p>
+            <a href="#" class="lien">En savoir plus →</a>
+          </article>
+
+          <article class="carte">
+            <div class="icone" style="background: var(--turquoise)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+            </div>
+            <h3>Applications Mobiles</h3>
+            <p>Des applications simples et intuitives pour Android et iOS.</p>
+            <a href="#" class="lien">En savoir plus →</a>
+          </article>
+
+          <article class="carte">
+            <div class="icone" style="background: var(--or)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+            </div>
+            <h3>Maintenance</h3>
+            <p>Un accompagnement continu pour garantir la performance de vos outils.</p>
+            <a href="#" class="lien">En savoir plus →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VIDÉO ET AUDIO ===== -->
+    <section class="medias" id="medias">
+      <div class="conteneur">
+
+        <!-- Vidéo -->
+        <div>
+          <p class="petit-titre">Notre vidéo</p>
+          <h2>Découvrez notre univers</h2>
+          <p class="texte">Regardez cette vidéo pour en savoir plus sur nous et nos services.</p>
+          <div class="video-cadre">
+            <video controls preload="metadata" poster="media/poster.jpg">
+              <source src="media/video.mp4" type="video/mp4">
+              Votre navigateur ne peut pas lire cette vidéo.
+            </video>
+          </div>
+        </div>
+
+        <!-- Audio -->
+        <div class="colonne-audio">
+          <p class="petit-titre">Notre audio</p>
+          <h2>Écoutez notre message</h2>
+          <p class="texte">Un petit message pour mieux comprendre notre vision.</p>
+
+          <div class="lecteur">
+            <button id="btn-audio" type="button" aria-label="Écouter le message">
+              <svg id="icone-audio" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="temps" id="temps-audio">0:00 / 0:30</span>
+            <div class="piste" aria-hidden="true"><div id="progres-audio"></div></div>
+          </div>
+
+          <div class="infos-audio">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <div>
+              <strong>Titre : Demain, avec les progrès de l’IA</strong>
+              Durée : environ 30 secondes
+            </div>
+          </div>
+          <p class="note-audio" id="note-audio"></p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== À PROPOS ===== -->
+    <section class="apropos" id="apropos">
+      <div class="conteneur">
+        <img src="media/paysage.jpg" alt="Vue sur la lagune et les immeubles de la ville au loin, sous un ciel nuageux">
+        <div>
+          <p class="petit-titre">À propos de nous</p>
+          <h2>Une équipe passionnée</h2>
+          <p class="texte">Notresite est une petite équipe passionnée par la technologie et le digital. Notre objectif est de vous offrir des solutions simples, fiables et adaptées à vos besoins.</p>
+          <a href="#contact" class="bouton">Nous contacter <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== PIED DE PAGE ===== -->
+  <footer id="contact">
+    <div class="conteneur">
+      <p>© 2026 Notresite. Tous droits réservés.</p>
+      <div class="reseaux">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.2 4.7H5.4l11.3 14.5z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.5 8.5h3.8V20H4.5V8.5zM6.4 3a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4zM10.6 8.5h3.6v1.6c.6-1 1.8-1.9 3.7-1.9 3.8 0 4.5 2.5 4.5 5.7V20h-3.8v-5.4c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V20h-3.8V8.5z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22 8.2c-.2-1-.9-1.7-1.9-1.9C18.4 6 12 6 12 6s-6.4 0-8.1.3C2.9 6.5 2.2 7.2 2 8.2 1.7 9.9 1.7 12 1.7 12s0 2.1.3 3.8c.2 1 .9 1.7 1.9 1.9C5.6 18 12 18 12 18s6.4 0 8.1-.3c1-.2 1.7-.9 1.9-1.9.3-1.7.3-3.8.3-3.8s0-2.1-.3-3.8zM10 15V9l5.2 3L10 15z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    /* =====================================================
+       LECTEUR AUDIO
+       Le navigateur lit le texte à voix haute (en français).
+       Pour utiliser plutôt un vrai fichier audio (mp3), voir
+       la remarque à la fin de ce script.
+       ===================================================== */
+
+    var MESSAGE =
+      "Bonjour, et bienvenue sur Notresite. " +
+      "Demain, l’intelligence artificielle fera partie de notre quotidien. " +
+      "Elle nous aidera à apprendre plus vite, à mieux soigner, et à créer des outils simples pour tout le monde. " +
+      "Les progrès vont très vite, mais une chose ne change pas : c’est l’humain qui décide. " +
+      "Ensemble, avec curiosité et responsabilité, nous pouvons faire de ces avancées une chance pour tous. " +
+      "Merci de votre écoute, et à très bientôt.";
+
+    var bouton   = document.getElementById("btn-audio");
+    var icone    = document.getElementById("icone-audio");
+    var temps    = document.getElementById("temps-audio");
+    var progres  = document.getElementById("progres-audio");
+    var note     = document.getElementById("note-audio");
+
+    var PLAY  = "M8 5v14l11-7z";
+    var PAUSE = "M6 5h4v14H6zM14 5h4v14h-4z";
+
+    var phrases = MESSAGE.match(/[^.!?:]+[.!?:]*\s*/g);   // on découpe le texte en phrases
+    var dureeTotale = 30;                                 // durée estimée en secondes
+    var etat = "arret";                                   // "arret", "lecture" ou "pause"
+    var debut = 0, ecoule = 0, chrono = null;
+
+    function format(s) {
+      s = Math.floor(s);
+      return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+    }
+
+    function afficher() {
+      var t = Math.min(ecoule, dureeTotale);
+      temps.textContent = format(t) + " / " + format(dureeTotale);
+      progres.style.width = (t / dureeTotale * 100) + "%";
+    }
+
+    function changerIcone(lecture) {
+      icone.firstElementChild.setAttribute("d", lecture ? PAUSE : PLAY);
+      bouton.setAttribute("aria-label", lecture ? "Mettre en pause" : "Écouter le message");
+    }
+
+    function demarrerChrono() {
+      debut = Date.now() - ecoule * 1000;
+      clearInterval(chrono);
+      chrono = setInterval(function () {
+        ecoule = (Date.now() - debut) / 1000;
+        afficher();
+      }, 200);
+    }
+
+    function trouverVoixFrancaise() {
+      var voix = speechSynthesis.getVoices();
+      for (var i = 0; i < voix.length; i++) {
+        if (voix[i].lang && voix[i].lang.toLowerCase().indexOf("fr") === 0) return voix[i];
+      }
+      return null;
+    }
+
+    function lire() {
+      speechSynthesis.cancel();
+      var voix = trouverVoixFrancaise();
+      var compteur = 0;
+      ecoule = 0;
+      afficher();
+
+      phrases.forEach(function (phrase) {
+        var u = new SpeechSynthesisUtterance(phrase);
+        u.lang = "fr-FR";
+        u.rate = 0.95;
+        if (voix) u.voice = voix;
+        u.onend = function () {
+          compteur++;
+          if (compteur === phrases.length) terminer();
+        };
+        speechSynthesis.speak(u);
+      });
+
+      etat = "lecture";
+      changerIcone(true);
+      demarrerChrono();
+    }
+
+    function terminer() {
+      clearInterval(chrono);
+      etat = "arret";
+      ecoule = dureeTotale;
+      afficher();
+      changerIcone(false);
+      setTimeout(function () { ecoule = 0; afficher(); }, 1200);
+    }
+
+    bouton.addEventListener("click", function () {
+      if (etat === "arret") {
+        lire();
+      } else if (etat === "lecture") {
+        speechSynthesis.pause();
+        clearInterval(chrono);
+        etat = "pause";
+        changerIcone(false);
+      } else {
+        speechSynthesis.resume();
+        demarrerChrono();
+        etat = "lecture";
+        changerIcone(true);
+      }
+    });
+
+    if (!("speechSynthesis" in window)) {
+      bouton.disabled = true;
+      note.textContent = "Votre navigateur ne peut pas lire ce message à voix haute.";
+    }
+    window.addEventListener("beforeunload", function () { speechSynthesis.cancel(); });
+    afficher();
+
+    /* -----------------------------------------------------
+       REMARQUE : pour utiliser un vrai fichier audio à la place
+       de la voix du navigateur, enregistre ton message en
+       "media/message.mp3" puis remplace le bloc
+       <div class="lecteur"> ... </div> par :
+
+       <audio controls src="media/message.mp3"></audio>
+       ----------------------------------------------------- */
+  </script>
+
+</body>
+</html>
